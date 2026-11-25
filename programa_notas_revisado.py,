@@ -1,0 +1,47 @@
+MEDIA_MINIMA = 6.0
+NOTA_MINIMA = 0.0
+NOTA_MAXIMA = 10.0
+
+
+def ler_inteiro_positivo(mensagem):
+    """Pede um inteiro maior que zero até o usuário digitar um valor válido."""
+    while True:
+        try:
+            valor = int(input(mensagem))
+            if valor > 0:
+                return valor
+            print("Digite um número maior que zero.")
+        except ValueError:
+            print("Entrada inválida. Digite um número inteiro.")
+
+
+def ler_nota(mensagem):
+    """Pede uma nota entre 0 e 10 até o usuário digitar um valor válido."""
+    while True:
+        try:
+            nota = float(input(mensagem).replace(",", "."))
+            if NOTA_MINIMA <= nota <= NOTA_MAXIMA:
+                return nota
+            print(f"A nota deve estar entre {NOTA_MINIMA:g} e {NOTA_MAXIMA:g}.")
+        except ValueError:
+            print("Entrada inválida. Digite um número (ex.: 7.5).")
+
+
+def calcular_media(notas):
+    """Retorna a média aritmética de uma lista de notas."""
+    return sum(notas) / len(notas)
+
+
+def main():
+    quantidade = ler_inteiro_positivo("Quantas notas? ")
+    notas = [ler_nota(f"Digite a nota {i}: ") for i in range(1, quantidade + 1)]
+
+    media = calcular_media(notas)
+    situacao = "Aprovado" if media >= MEDIA_MINIMA else "Reprovado"
+
+    print(f"Média: {media:.2f}")
+    print(f"Situação: {situacao}")
+
+
+if __name__ == "__main__":
+    main()
